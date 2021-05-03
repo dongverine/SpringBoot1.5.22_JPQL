@@ -12,3 +12,31 @@
 ```
 프로젝트 마우스Right 클릭 > Configure > Add Gradle Nature
 ```
+
+# 외부파일 연동 
+```
+## WebMvcConfig.java
+@Slf4j
+@Configuration
+//@EnableWebMvc//application.properties를 쓰지 않는다?
+public class WebMvcConfig extends WebMvcConfigurerAdapter {
+    /*
+        SpringBoot1.5 에서는 extends WebMvcConfigurerAdapter를 한다. 2.0에서는 없어진 추상클래스
+        SpringBoot2.x 에서는 implements WebMvcConfigurer 한다.
+    */
+    @Value("${resources.location_1}")
+    private String resourcesLocation;
+
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        log.info("resourcesLocation : {}",resourcesLocation);
+        registry.addResourceHandler("/exp/**")
+                .addResourceLocations("file:"+resourcesLocation);
+
+    }
+```
+
+```
+## application.properties
+resources.location_1=///c:/workspace/
+```

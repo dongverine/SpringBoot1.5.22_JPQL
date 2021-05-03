@@ -2,12 +2,15 @@ package com.dongverine.config;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 @Slf4j
-//@EnableWebMvc
+@EnableWebMvc
 @Configuration
 public class WebMvcConfig extends WebMvcConfigurerAdapter {
     /*
@@ -31,10 +34,27 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
 //    }
 
 //    @Bean
-//    public InternalResourceViewResolver getInternalResourceViewResolver() {
-//        InternalResourceViewResolver resolver = new InternalResourceViewResolver();
-//        resolver.setPrefix("/WEB-INF/views/");
+//    public ExpViewResolver getCustomInternalResourceViewResolver() {
+//        ExpViewResolver resolver = new ExpViewResolver();
+//        resolver.setPrefix("/custom/");
 //        resolver.setSuffix(".jsp");
+//        resolver.setOrder(0);
 //        return resolver;
 //    }
+
+//    @Bean
+//    public ExpUrlBasedViewResolver getCustomUrlBasedViewResolver() {
+//        ExpUrlBasedViewResolver resolver = new ExpUrlBasedViewResolver();
+//        resolver.setOrder(0);
+//        return resolver;
+//    }
+
+    @Bean
+    public InternalResourceViewResolver getInternalResourceViewResolver() {
+        InternalResourceViewResolver resolver = new InternalResourceViewResolver();
+        resolver.setPrefix("/WEB-INF/board/");
+        resolver.setSuffix(".jsp");
+        resolver.setOrder(1);
+        return resolver;
+    }
 }
